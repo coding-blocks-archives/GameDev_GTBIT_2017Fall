@@ -12,12 +12,17 @@ const context = canvas.getContext('2d')
 canvas.style.backgroundColor = 'skyblue'
 
 const gameData = {
+    frame: {
+        w: 800, h: 800
+    },
     cube1: {
         color: 'red',
         x: 40,
         y: 40,
         h: 30,
-        w: 30
+        w: 30,
+        speed: 5,
+        movdir: 'r'
     }
 }
 
@@ -25,7 +30,31 @@ function drawRect(ctx, obj) {
     ctx.fillStyle = obj.color
     ctx.fillRect(obj.x, obj.y, obj.w, obj.h)
 }
-drawRect(context, gameData.cube1)
+function draw() {
+    context.clearRect(0, 0, gameData.frame.w, gameData.frame.h);
+    drawRect(context, gameData.cube1)
+}
+function translate (ctx, obj) {
+    switch(obj.movdir) {
+        case 'l': obj.x -= obj.speed; break;
+        case 'r': obj.x += obj.speed; break;
+        case 'u': obj.y -= obj.speed; break;
+        case 'd': obj.y += obj.speed; break;
+    }
+}
+function update () {
+    //update game data
+    translate(context, gameData.cube1)
+}
+
+function render () {
+    draw()
+    update()
+    window.requestAnimationFrame(render)
+}
+
+render()
+
 
 </script>
     </body>
