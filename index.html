@@ -21,7 +21,7 @@ const gameData = {
         y: 40,
         h: 30,
         w: 30,
-        speed: 5,
+        speed: 1,
         movdir: 'r'
     }
 }
@@ -45,6 +45,19 @@ function translate (ctx, obj) {
 function update () {
     //update game data
     translate(context, gameData.cube1)
+}
+
+window.onkeydown = function (event) {
+    switch(event.keyCode) {
+        case 37: //l
+        gameData.cube1.movdir = 'l'; break;
+        case 38: //u
+        gameData.cube1.movdir = 'u'; break;
+        case 39: //r
+        gameData.cube1.movdir = 'r'; break;
+        case 40: //d
+        gameData.cube1.movdir = 'd'; break;
+    }
 }
 
 function render () {
