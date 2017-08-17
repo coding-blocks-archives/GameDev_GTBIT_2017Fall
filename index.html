@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <canvas id="gamecanvas" width="800" height="800"></canvas>
+<script>
+
+const canvas = document.getElementById('gamecanvas')
+const context = canvas.getContext('2d')
+canvas.style.backgroundColor = 'skyblue'
+
+const gameData = {
+    cube1: {
+        color: 'red',
+        x: 40,
+        y: 40,
+        h: 30,
+        w: 30
+    }
+}
+
+function drawRect(ctx, obj) {
+    ctx.fillStyle = obj.color
+    ctx.fillRect(obj.x, obj.y, obj.w, obj.h)
+}
+drawRect(context, gameData.cube1)
+
+</script>
+    </body>
+</html>
