@@ -6,27 +6,68 @@
     <body>
         <canvas id="gamecanvas" width="800" height="800"></canvas>
 <script>
-
 const canvas = document.getElementById('gamecanvas')
 const context = canvas.getContext('2d')
 canvas.style.backgroundColor = 'skyblue'
-
+const interval = setInterval(updateGameData, 20)
 const gameData = {
     cube1: {
         color: 'red',
         x: 40,
         y: 40,
         h: 30,
-        w: 30
+        w: 30,
+		speedX: 0,
+		speedY: 0,
     }
+}
+
+function clear(ctx) {
+	ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
 
 function drawRect(ctx, obj) {
     ctx.fillStyle = obj.color
     ctx.fillRect(obj.x, obj.y, obj.w, obj.h)
 }
-drawRect(context, gameData.cube1)
 
+function moveRect(obj) {
+	obj.x = obj.x + obj.speedX
+	obj.y = obj.y + obj.speedY
+}
+
+function moveRectUp(obj) {
+    obj.speedY -= 1
+}
+
+function moveRectDown(obj) {
+    obj.speedY += 1
+}
+
+function moveRectLeft(obj) {
+    obj.speedX -= 1
+}
+
+function moveRectRight(obj) {
+    obj.speedX += 1
+}
+
+function stopRect(obj) {
+    obj.speedX = 0
+    obj.speedY = 0
+}
+
+function updateGameData() {
+	clear(context)
+	moveRect(gameData.cube1)
+	drawRect(context, gameData.cube1)
+}
 </script>
-    </body>
+<div style = "text-align: center; width: 800px;">
+	<p style = "margin: 5px 0"> <button onmousedown="moveRectUp(gameData.cube1)" onmouseup="stopRect(gameData.cube1)" ontouchstart="moveRectUp(gameData.cube1)"> Up </button> </p>
+	<button onmousedown="moveRectLeft(gameData.cube1)" onmouseup="stopRect(gameData.cube1)" ontouchstart="moveRectLeft(gameData.cube1)"> Left </button>
+	<button onmousedown="moveRectDown(gameData.cube1)" onmouseup="stopRect(gameData.cube1)" ontouchstart="moveRectDown(gameData.cube1)"> Down </button>
+	<button onmousedown="moveRectRight(gameData.cube1)" onmouseup="stopRect(gameData.cube1)" ontouchstart="moveRectRight(gameData.cube1)"> Right </button>
+</div>
+	</body>
 </html>
