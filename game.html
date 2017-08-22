@@ -1,0 +1,54 @@
+<html>
+    <body>
+        <canvas id='game' width=300 height=300></canvas>
+    </body>
+<script>
+    let screen = document.getElementById('game')
+    screen.style.backgroundColor = 'skyblue'
+    let pen = screen.getContext('2d')
+    let box = {x: 50, y: 50, w:25, h:25, 
+                col:'red',
+                speed: 2, dir: 'r'
+            }
+    function drawRect(pen, obj) {
+        pen.fillStyle = obj.col
+        pen.fillRect(obj.x, obj.y, obj.w, obj.h)
+    }
+    function draw () {
+        pen.clearRect(0,0,300,300)
+        drawRect(pen, box)
+    }
+    function updateBox () {
+        switch (box.dir) {
+            case 'l': box.x = box.x - box.speed; break;
+            case 'r': box.x = box.x + box.speed; break;
+            case 'u': box.y = box.y - box.speed; break;
+            case 'd': box.y = box.y + box.speed; break;
+        }
+    }
+    function toggleBoxMove () {
+        if (box.speed == 0) box.speed = 2
+        else box.speed = 0
+    }
+    function update () {
+        updateBox()
+        draw()
+        window.requestAnimationFrame(update)
+    }
+    window.onkeydown = function (event) {
+        switch(event.keyCode) {
+            case 37: box.dir = 'l'; break;
+            case 38: box.dir = 'u'; break;
+            case 39: box.dir = 'r'; break;
+            case 40: box.dir = 'd'; break;
+            case 32: toggleBoxMove(); break;
+        }
+    }
+    update();
+
+    // https://github.com/coding-blocks-archives
+    // http://cb.lk/gdw1
+    // email: a@cb.lk 
+    
+</script>
+</html>
